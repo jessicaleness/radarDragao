@@ -109,7 +109,7 @@ public class RadarDoDragao {
         for(int i = 0; i < 7; i++) {
             esferas[i].setXY(gerador.nextInt(42), gerador.nextInt(42));
 
-            System.out.println("Esfera " + i + ": [" + esferas[i].x + ", " + esferas[i].y + "]");
+            // System.out.println("Esfera " + i + ": [" + esferas[i].x + ", " + esferas[i].y + "]");
         }
     }
     // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -204,7 +204,7 @@ public class RadarDoDragao {
                                 + "X = " + (int)ponto.getX() + "\n"
                                 + "Y = " + (int)ponto.getY() + "\n Clique em OK para continuar");
             qtdEsferasEncontradas++;
-            System.out.println("Esferas: " + qtdEsferasEncontradas);
+            // System.out.println("Esferas: " + qtdEsferasEncontradas);
         }
         adicionaVizinhos(ponto);
         return qtdEsferasEncontradas;
