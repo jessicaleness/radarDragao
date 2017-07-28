@@ -1,3 +1,4 @@
 /build/
 build.xml
-/nbprojects/
+/nbproject/private/
+/.vscode/
