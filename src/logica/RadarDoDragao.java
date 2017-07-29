@@ -5,7 +5,6 @@ import paineis.PainelMapa;
 import paineis.PainelPrincipal;
 import paineis.PainelTipoBusca;
 import java.awt.event.ActionListener;
-import java.awt.geom.Point2D;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -23,90 +22,97 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
-
 /**
  * @author Jhonatan Nabhan
  */
 public class RadarDoDragao {
 
-    /* VARIÁVEIS GLOBAIS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+    /* VARIAVEIS GLOBAIS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
     static final int TAMANHO_MAPA = 42;
     public static char[][] Mapa = new char[TAMANHO_MAPA][TAMANHO_MAPA];
     static Esfera[] esferas = new Esfera[7];
     public JFrame mapa = new JFrame("Mapa");
-    JFrame pp = new JFrame("Simulador do Radar das Esferas do Dragão");
+    JFrame pp = new JFrame("Simulador do Radar das Esferas do Dragao");
     PainelMapa painelMapa = new PainelMapa();
     PainelPrincipal painelPrincipal = new PainelPrincipal();
     public static RadarDoDragao radar;
 
-    List<Point2D> locaisVisitados = new ArrayList<>();
-    List<Point2D> locaisParaVisitar = new ArrayList<>();
-    // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Fim variáveis    
+    List<Ponto> locaisVisitados = new ArrayList<>();
+    List<Ponto> locaisParaVisitar = new ArrayList<>();
+    // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Fim variaveis    
 
-    /* MÉTODOS DA CLASSE >> */
+    /* METODOS DA CLASSE >> */
 
-    /* CARREGA O MAPA DE UM ARQUIVO .txt  >>>>>>>>>>>>>>>>>>>>>> */
+ /* CARREGA O MAPA DE UM ARQUIVO .txt  >>>>>>>>>>>>>>>>>>>>>> */
     public static void LoadMapa(String filename) throws IOException {
-        
-    /* Variáveis --------------------------------- */
-    int count_line = 0;
-    String linhaArquivo;
-    BufferedReader leArquivo;
-    boolean fimArquivo = false;
-    StringTokenizer leLinhaArquivo;
-    /* ------------------------------------------- */
 
-    leArquivo = new BufferedReader( new FileReader( filename ) );
+        /* Variaveis --------------------------------- */
+        int count_line = 0;
+        String linhaArquivo;
+        BufferedReader leArquivo;
+        boolean fimArquivo = false;
+        StringTokenizer leLinhaArquivo;
+        /* ------------------------------------------- */
 
-    FileInputStream entrada = new FileInputStream(filename);        
-    InputStreamReader entradaFormatada = new InputStreamReader(entrada);
+        leArquivo = new BufferedReader(new FileReader(filename));
 
-    /* Lê as linhas da matriz mapa  */
-    for(int i = 0; i < TAMANHO_MAPA; i++) {	  
-        linhaArquivo = leArquivo.readLine();
+        FileInputStream entrada = new FileInputStream(filename);
+        InputStreamReader entradaFormatada = new InputStreamReader(entrada);
 
-        if( linhaArquivo == null ){
-            fimArquivo = true;
-            break;}	
+        /* Le as linhas da matriz mapa  */
+        for (int i = 0; i < TAMANHO_MAPA; i++) {
+            linhaArquivo = leArquivo.readLine();
 
-        leLinhaArquivo = new StringTokenizer(linhaArquivo);
+            if (linhaArquivo == null) {
+                fimArquivo = true;
+                break;
+            }
 
-        // le os M elementos de linhaArquivo
-        for(int j = 0; j < TAMANHO_MAPA; j++)
-            Mapa[i][j] = linhaArquivo.charAt(j);}}
+            leLinhaArquivo = new StringTokenizer(linhaArquivo);
+
+            // le os M elementos de linhaArquivo
+            for (int j = 0; j < TAMANHO_MAPA; j++) {
+                Mapa[i][j] = linhaArquivo.charAt(j);
+            }
+        }
+    }
     // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     /* CONTRUTOR DA CLASSE >>>>>>>>>> */
-    public static void RadarDoDragao() {} 
+    public static void RadarDoDragao() {
+    }
     // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     /* -- >>>>>>>>>> */
-    public static void ReviveKuririn() {}
+    public static void ReviveKuririn() {
+    }
     // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-    
+
     /* DESENHA O MAPA NA TELA EM UMA MATRIZ 42x42 >> */
-    public void DesenhaMap() {    
+    public void DesenhaMap() {
         mapa.add(painelMapa);
         mapa.setSize(645, 690);
         mapa.setLocationRelativeTo(null);
         mapa.setVisible(true);
-        BuscaEsferas(); // O usuário seleciona o tipo de busca
+        BuscaEsferas(); // O usuario seleciona o tipo de busca
     } // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-    /* RETORNA A MATRIZ "Mapa" À CLASSE SOLICITANTE >> */
+    /* RETORNA A MATRIZ "Mapa" A CLASSE SOLICITANTE >> */
     public static char[][] getMapa() {
-        return Mapa;}
+        return Mapa;
+    }
     // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     /* SORTEIA AS ESFERAS NO MAPA >> */
     public static void SorteiaEsferas() {
-        /* O método cria 7 esferas e seta coordenadas
-        X e Y aleatórias para cada esfera */
-        
-        for(int i = 0; i < 7; i++)
-                esferas[i] = new Esfera();
+        /* O metodo cria 7 esferas e seta coordenadas
+        X e Y aleatorias para cada esfera */
+
+        for (int i = 0; i < 7; i++) {
+            esferas[i] = new Esfera();
+        }
         Random gerador = new Random();
-        for(int i = 0; i < 7; i++) {
+        for (int i = 0; i < 7; i++) {
             esferas[i].setXY(gerador.nextInt(42), gerador.nextInt(42));
 
             // System.out.println("Esfera " + i + ": [" + esferas[i].x + ", " + esferas[i].y + "]");
@@ -114,79 +120,81 @@ public class RadarDoDragao {
     }
     // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-    /* RETORNA O VETOR DE ESFERAS À CLASSE SOLICITANTE >> */
+    /* RETORNA O VETOR DE ESFERAS A CLASSE SOLICITANTE >> */
     public static Esfera[] getEsferas() {
-        return esferas;}
+        return esferas;
+    }
     // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-    /* O USUÁRIO SELECIONA O TIPO DE BUSCA >> */
+    /* O USUARIO SELECIONA O TIPO DE BUSCA >> */
     public static void BuscaEsferas() {
-        /* Exibe um radioButton para seleção do tipo de busca */
+        /* Exibe um radioButton para selecao do tipo de busca */
         JFrame tipoBusca = new JFrame("Selecione o tipo de busca cega"); // Cria o frame
         PainelTipoBusca painelTipoBusca = new PainelTipoBusca(); // Cria o painel
-        
-        // Opções de busca:
+
+        // Opcoes de busca:
         JRadioButton b1 = new JRadioButton("Profundidade");
         JRadioButton b2 = new JRadioButton("Bidirecional");
         JRadioButton b3 = new JRadioButton("A*");
-        
-        // Adiciona os botões
+
+        // Adiciona os botoes
         painelTipoBusca.add(b1);
         painelTipoBusca.add(b2);
         painelTipoBusca.add(b3);
-        
+
         // Seleciona o tipo de busca na tela
         JOptionPane.showMessageDialog(null, painelTipoBusca, "Selecione o tipo de busca", 3);
-        
-        Busca busca = new Busca(); 
-        
-        if(b1.isSelected()) {
+
+        Busca busca = new Busca();
+
+        if (b1.isSelected()) {
             // Busca em profundidade
-               // Varre a matriz do primeiro elemento da esquerda até o último da direita
-                  // Para cada posição, verifica se tem esfera                  
-                  for(int a = 0; a < 42; a++) {
-                    for(int b = 0; b < 42; b++) {
-                        System.out.println(a + " " + b);
-                        if(busca.hasEsfera(a, b)) {
-                            JOptionPane.showMessageDialog(null, "Esfera encontrada!\n"
-                                    + "Posição\n"
-                                    + "X = " + a + "\n"
-                                    + "Y = " + b + "\n Clique em OK para continuar");
-                        }
-                    }                 
-                  }
-        }
-        if(b2.isSelected()) {
-            // Busca bidirecional
-                // Mexe as duas posições
-            for(int a = 0; a <= 20; a++) {
-                for(int b = 0; b <= 41; b++) {
-                    if(busca.hasEsfera(a, b)) {
+            // Varre a matriz do primeiro elemento da esquerda ate o ultimo da direita
+            // Para cada posicao, verifica se tem esfera                  
+            for (int a = 0; a < 42; a++) {
+                for (int b = 0; b < 42; b++) {
+                    System.out.println(a + " " + b);
+                    if (busca.hasEsfera(a, b)) {
                         JOptionPane.showMessageDialog(null, "Esfera encontrada!\n"
-                                        + "Posição\n"
-                                        + "X = " + a + "\n"
-                                        + "Y = " + b + "\n Clique em OK para continuar");
-                    }
-                    if(busca.hasEsfera(41-a, 41-b)) {
-                        JOptionPane.showMessageDialog(null, "Esfera encontrada!\n"
-                                        + "Posição\n"
-                                        + "X = " + (41-a) + "\n"
-                                        + "Y = " + (41-b) + "\n Clique em OK para continuar");
+                                + "Posicao\n"
+                                + "X = " + a + "\n"
+                                + "Y = " + b + "\n Clique em OK para continuar");
                     }
                 }
             }
         }
-        
-        if(b3.isSelected()) {
+        if (b2.isSelected()) {
+            // Busca bidirecional
+            // Mexe as duas posicoes
+            for (int a = 0; a <= 20; a++) {
+                for (int b = 0; b <= 41; b++) {
+                    if (busca.hasEsfera(a, b)) {
+                        JOptionPane.showMessageDialog(null, "Esfera encontrada!\n"
+                                + "Posicao\n"
+                                + "X = " + a + "\n"
+                                + "Y = " + b + "\n Clique em OK para continuar");
+                    }
+                    if (busca.hasEsfera(41 - a, 41 - b)) {
+                        JOptionPane.showMessageDialog(null, "Esfera encontrada!\n"
+                                + "Posicao\n"
+                                + "X = " + (41 - a) + "\n"
+                                + "Y = " + (41 - b) + "\n Clique em OK para continuar");
+                    }
+                }
+            }
+        }
+
+        if (b3.isSelected()) {
             Integer qtdEsferasEncontradas = 0;
             // O agente inicia na casa do Mestre Kame
-            // Ponto vermelho na região central do mapa
-            Point2D kameHouse = new Point(19, 19);
+            // Ponto vermelho na regiao central do mapa
+
+            Ponto kameHouse = new Ponto(19, 19);
 
             radar.locaisParaVisitar.add(kameHouse);         // adiciona ponto de partida
 
-            while(radar.locaisParaVisitar.size() > 0 || qtdEsferasEncontradas < 7) {
-                Point2D local = radar.locaisParaVisitar.remove(0);
+            while (radar.locaisParaVisitar.size() > 0 || qtdEsferasEncontradas < 7) {
+                Ponto local = radar.locaisParaVisitar.remove(0);
                 qtdEsferasEncontradas = radar.aEstrela(local, busca, qtdEsferasEncontradas);
             }
 
@@ -196,24 +204,28 @@ public class RadarDoDragao {
         }
     }
 
-    private static Integer aEstrela(Point2D ponto, Busca busca, Integer qtdEsferasEncontradas) {
+    private static Integer aEstrela(Ponto ponto, Busca busca, Integer qtdEsferasEncontradas) {
         radar.locaisVisitados.add(ponto);
-        if (busca.hasEsfera((int)ponto.getX(), (int)ponto.getY())) {
+
+        if (busca.hasEsfera(ponto.getX(), ponto.getY())) {
             JOptionPane.showMessageDialog(null, "Esfera encontrada!\n"
-                                + "Posição\n"
-                                + "X = " + (int)ponto.getX() + "\n"
-                                + "Y = " + (int)ponto.getY() + "\n Clique em OK para continuar");
+                    + "Posicao\n"
+                    + "Peso = " + ponto.getPeso() + "\n"
+                    + "X = " + ponto.getX() + "\n"
+                    + "Y = " + ponto.getY() + "\n Clique em OK para continuar");
             qtdEsferasEncontradas++;
-            // System.out.println("Esferas: " + qtdEsferasEncontradas);
+//            System.out.println("Esferas: " + qtdEsferasEncontradas);
         }
         adicionaVizinhos(ponto);
         return qtdEsferasEncontradas;
     }
 
-    private static void adicionaVizinhos(Point2D ponto) {
+    private static void adicionaVizinhos(Ponto ponto) {
         for (int x = -1; x <= 1; x++) {
             for (int y = -1; y <= 1; y++) {
-                Point2D vizinho = new Point((int)ponto.getX()+x, (int)ponto.getY()+y);
+                Integer coordXvizinho = ponto.getX() + x;
+                Integer coordYvizinho = ponto.getY() + y;
+                Ponto vizinho = new Ponto(coordXvizinho, coordYvizinho, ponto.getPeso() + findPeso(coordXvizinho, coordYvizinho));
                 if (isPontoValido(vizinho) && !radar.locaisVisitados.contains(vizinho) && !radar.locaisParaVisitar.contains(vizinho)) {
                     radar.locaisParaVisitar.add(vizinho);
                 }
@@ -221,17 +233,41 @@ public class RadarDoDragao {
         }
     }
 
-    private static void achaMelhorPosicao(Point2D ponto) {
-        
+    private static Boolean isPontoValido(Ponto ponto) {
+        return ponto.getX() >= 0 && ponto.getX() < radar.TAMANHO_MAPA
+                && ponto.getY() >= 0 && ponto.getY() < radar.TAMANHO_MAPA;
     }
 
-    private static Boolean isPontoValido(Point2D ponto) {
-        return ponto.getX() >= 0 && ponto.getX() < radar.TAMANHO_MAPA &&
-               ponto.getY() >= 0 && ponto.getY() < radar.TAMANHO_MAPA;
+    private static Integer findPeso(Integer x, Integer y) {
+
+        if (isPontoValido(new Ponto(x, y))) {
+            char c = Mapa[x][y];
+            return getPeso(c);
+        } else {
+            return 0;
+        }
     }
 
-    
-    
+    private static Integer getPeso(char c) {
+        switch (c) {
+            case 'A':
+                return 10;
+            case 'G':
+                return 1;
+            case 'M':
+                return 60;
+            default:
+                return 0;
+        }
+    }
+
+    private static void exibeLista(List<Ponto> list) {
+        for (Ponto p : list) {
+            System.out.print(" [" + p.getX() + "," + p.getY() + "]");
+        }
+        System.out.println();
+    }
+
     /* PAINEL PRINCIPAL (PLAY) >> */
     private void PainelPrincipal() {
         ImageIcon imgPlay;
@@ -244,17 +280,16 @@ public class RadarDoDragao {
         pp.setLocationRelativeTo(null);
         pp.add(btnPlay);
         pp.setVisible(true);
-        pp.setDefaultCloseOperation(EXIT_ON_CLOSE); 
+        pp.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
-    // << FIM MÉTODOS *********************************************************/
-    
-    /* MAIN >> */
+    // << FIM METODOS *********************************************************/
 
+    /* MAIN >> */
     public static void main(String[] args) throws FileNotFoundException, IOException, InterruptedException {
-        LoadMapa("resource/Mapa.txt"); // especifica aqui o diretório do mapa
+        LoadMapa("resource/Mapa.txt"); // especifica aqui o diretorio do mapa
         radar = new RadarDoDragao();
-        radar.PainelPrincipal(); // este método leva aos próximos métodos da execução. 
-        ReviveKuririn(); 
+        radar.PainelPrincipal(); // este metodo leva aos proximos metodos da execucao. 
+        ReviveKuririn();
     }
     // << FIM *************************************************************************************************
 }
