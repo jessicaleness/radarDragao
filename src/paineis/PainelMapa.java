@@ -1,4 +1,4 @@
-package painéis;
+package paineis;
 
 import java.awt.Color;
 import static java.awt.Color.blue;
@@ -8,10 +8,10 @@ import java.awt.geom.Rectangle2D;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import static lógica.RadarDoDragao.Mapa;
-import lógica.Esfera;
-import lógica.RadarDoDragao;
-import static lógica.RadarDoDragao.SorteiaEsferas;
+import static logica.RadarDoDragao.Mapa;
+import logica.Esfera;
+import logica.RadarDoDragao;
+import static logica.RadarDoDragao.SorteiaEsferas;
 
 /**
  *

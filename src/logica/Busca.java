@@ -1,6 +1,6 @@
-package lógica;
+package logica;
 
-import static lógica.RadarDoDragao.esferas;
+import static logica.RadarDoDragao.esferas;
 
 public class Busca {
     
@@ -11,6 +11,5 @@ public class Busca {
             }
         }
         return false;
-    }    
-    
+    }
 }

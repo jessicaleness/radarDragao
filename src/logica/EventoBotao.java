@@ -1,7 +1,7 @@
 /*
  * Esta classe desencadeia os eventos que seguem o clique no botão.
  */
-package lógica;
+package logica;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

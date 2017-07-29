@@ -1,9 +1,9 @@
-package lógica;
+package logica;
 
 import java.awt.Point;
-import painéis.PainelMapa;
-import painéis.PainelPrincipal;
-import painéis.PainelTipoBusca;
+import paineis.PainelMapa;
+import paineis.PainelPrincipal;
+import paineis.PainelTipoBusca;
 import java.awt.event.ActionListener;
 import java.awt.geom.Point2D;
 import java.io.BufferedReader;
@@ -56,24 +56,24 @@ public class RadarDoDragao {
     StringTokenizer leLinhaArquivo;
     /* ------------------------------------------- */
 
-        leArquivo = new BufferedReader( new FileReader( filename ) );
+    leArquivo = new BufferedReader( new FileReader( filename ) );
 
-        FileInputStream entrada = new FileInputStream(filename);        
-        InputStreamReader entradaFormatada = new InputStreamReader(entrada);
+    FileInputStream entrada = new FileInputStream(filename);        
+    InputStreamReader entradaFormatada = new InputStreamReader(entrada);
 
-        /* Lê as linhas da matriz mapa  */
-        for(int i = 0; i < TAMANHO_MAPA; i++) {	  
-            linhaArquivo = leArquivo.readLine();
+    /* Lê as linhas da matriz mapa  */
+    for(int i = 0; i < TAMANHO_MAPA; i++) {	  
+        linhaArquivo = leArquivo.readLine();
 
-            if( linhaArquivo == null ){
-                fimArquivo = true;
-                break;}	
+        if( linhaArquivo == null ){
+            fimArquivo = true;
+            break;}	
 
-            leLinhaArquivo = new StringTokenizer(linhaArquivo);
+        leLinhaArquivo = new StringTokenizer(linhaArquivo);
 
-            // le os M elementos de linhaArquivo
-            for(int j = 0; j < TAMANHO_MAPA; j++)
-                    Mapa[i][j] = linhaArquivo.charAt(j);}}
+        // le os M elementos de linhaArquivo
+        for(int j = 0; j < TAMANHO_MAPA; j++)
+            Mapa[i][j] = linhaArquivo.charAt(j);}}
     // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     /* CONTRUTOR DA CLASSE >>>>>>>>>> */
@@ -219,6 +219,10 @@ public class RadarDoDragao {
                 }
             }
         }
+    }
+
+    private static void achaMelhorPosicao(Point2D ponto) {
+        
     }
 
     private static Boolean isPontoValido(Point2D ponto) {

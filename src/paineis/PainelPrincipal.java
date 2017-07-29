@@ -5,7 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package painéis;
+package paineis;
 
 import java.awt.Graphics;
 import javax.swing.JPanel;
